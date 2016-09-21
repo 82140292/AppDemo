@@ -59,4 +59,8 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
 
     }
+
+    public void closeDrawers(){
+        mDrawerLayout.closeDrawers();
+    }
 }
