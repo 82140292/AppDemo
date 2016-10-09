@@ -15,11 +15,11 @@ public class Author implements Serializable {
     private String id;
     private String slug;
     private String name;
-    private String firstName;
-    private String lastName;
-    private String nickName;
+    private String first_name;
+    private String last_name;
+    private String nick_name;
     private String url;
-    private String desc;
+    private String description;
 
     public static Author parse(final JSONObject jsonObject){
         Author author;
@@ -30,11 +30,11 @@ public class Author implements Serializable {
             author.id = jsonObject.optString("id");
             author.slug = jsonObject.optString("slug");
             author.name = jsonObject.optString("name");
-            author.firstName = jsonObject.optString("first_name");
-            author.lastName = jsonObject.optString("last_name");
-            author.nickName = jsonObject.optString("nick_name");
+            author.first_name = jsonObject.optString("first_name");
+            author.last_name = jsonObject.optString("last_name");
+            author.nick_name = jsonObject.optString("nick_name");
             author.url = jsonObject.optString("url");
-            author.desc = jsonObject.optString("description");
+            author.description = jsonObject.optString("description");
         }
         return author;
     }
@@ -63,28 +63,28 @@ public class Author implements Serializable {
         this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNick_name() {
+        return nick_name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
     }
 
     public String getUrl() {
@@ -95,11 +95,11 @@ public class Author implements Serializable {
         this.url = url;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
