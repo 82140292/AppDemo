@@ -36,11 +36,15 @@ public class FreshNewsFragment extends BaseFragment implements LoadResultCallBac
 
     private FreshNewsAdapter mAdapter;
 
+    public FreshNewsFragment(){
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     @Nullable
     @Override

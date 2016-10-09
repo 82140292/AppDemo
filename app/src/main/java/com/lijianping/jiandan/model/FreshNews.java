@@ -58,9 +58,31 @@ public class FreshNews implements Serializable {
             freshNews.date = jsonObject.optString("date");
             freshNews.comment_count = jsonObject.optString("comment_count");
             freshNews.author = Author.parse(jsonObject.optJSONObject("author"));
-            freshNews.custom_fields = CustomFields.parseCache(jsonObject.optJSONObject("custom_fields"));
-
+            freshNews.custom_fields = CustomFields.parse(jsonObject.optJSONObject("custom_fields"));
+            freshNews.tags = Tags.parse(jsonObject.optJSONArray("tags"));
             freshNewses.add(freshNews);
+        }
+        return freshNewses;
+    }
+
+    public static ArrayList<FreshNews> parseCache(JSONArray postArray){
+
+        ArrayList<FreshNews> freshNewses = new ArrayList<>();
+
+        for (int i = 0; i < postArray.length(); i++){
+            FreshNews freshNews = new FreshNews();
+            JSONObject jsonObject = postArray.optJSONObject(i);
+
+            freshNews.id = jsonObject.optString("id");
+            freshNews.url = jsonObject.optString("url");
+            freshNews.title = jsonObject.optString("title");
+            freshNews.date = jsonObject.optString("date");
+            freshNews.comment_count = jsonObject.optString("comment_count");
+            freshNews.author = Author.parse(jsonObject.optJSONObject("author"));
+            freshNews.custom_fields = CustomFields.parseCache(jsonObject.optJSONObject("custom_fields"));
+            freshNews.tags = Tags.parseCache(jsonObject.optJSONObject("tags"));
+            freshNewses.add(freshNews);
+
         }
         return freshNewses;
     }
