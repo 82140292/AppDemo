@@ -1,7 +1,9 @@
 package com.lijianping.jiandan.Fragment;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +53,8 @@ public class MainMenuFragment extends BaseFragment{
 
         if (activity instanceof MainActivity){
             mainActivity = (MainActivity) activity;
+        }else {
+            throw new IllegalArgumentException("The activity must be a MainActivity!");
         }
     }
 
@@ -78,10 +82,6 @@ public class MainMenuFragment extends BaseFragment{
         mAdapter = new MenuAdapter();
         addAllMenuItems(mAdapter);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void addAllMenuItems(MenuAdapter mAdapter) {
-
     }
 
     private class MenuAdapter extends RecyclerView.Adapter<ViewHolder>{
@@ -137,5 +137,46 @@ public class MainMenuFragment extends BaseFragment{
             title = (TextView) itemView.findViewById(R.id.tv_item_drawer_title);
             container = (RelativeLayout) itemView.findViewById(R.id.rl_item_drawer_container);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (sp.getBoolean(SettingFragment.ENABLE_GIRLS, false) && mAdapter.menuItems.size() == 4){
+            addAllMenuItems(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }else if (!sp.getBoolean(SettingFragment.ENABLE_GIRLS, false) && mAdapter.menuItems.size() == 5){
+            addMenuItemsNoGirls(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    private void addAllMenuItems(MenuAdapter mAdapter) {
+        mAdapter.menuItems.clear();
+        mAdapter.menuItems.add(new MenuItem("新鲜事", R.drawable.ic_explore_white_24dp, MenuItem.FragmentType.FreshNews,
+                FreshNewsFragment.class));
+        mAdapter.menuItems.add(new MenuItem("无聊图", R.drawable.ic_mood_white_24dp, MenuItem.FragmentType.BoringPicture,
+                PictureFragment.class));
+        mAdapter.menuItems.add(new MenuItem("妹子图", R.drawable.ic_local_florist_white_24dp, MenuItem.FragmentType.Sister,
+                GirlsFragment.class));
+        mAdapter.menuItems.add(new MenuItem("段子", R.drawable.ic_chat_white_24dp, MenuItem.FragmentType.Joke,
+                JokeFragment.class));
+        mAdapter.menuItems.add(new MenuItem("小电影", R.drawable.ic_movie_white_24dp, MenuItem.FragmentType.Video,
+                VideoFragment.class));
+    }
+
+    private void addMenuItemsNoGirls(MenuAdapter mAdapter){
+        mAdapter.menuItems.clear();
+        mAdapter.menuItems.add(new MenuItem("新鲜事", R.drawable.ic_explore_white_24dp, MenuItem.FragmentType.FreshNews,
+                FreshNewsFragment.class));
+        mAdapter.menuItems.add(new MenuItem("无聊图", R.drawable.ic_mood_white_24dp, MenuItem.FragmentType.BoringPicture,
+                PictureFragment.class));
+        mAdapter.menuItems.add(new MenuItem("段子", R.drawable.ic_chat_white_24dp, MenuItem.FragmentType.Joke,
+                JokeFragment.class));
+        mAdapter.menuItems.add(new MenuItem("小电影", R.drawable.ic_movie_white_24dp, MenuItem.FragmentType.Video,
+                VideoFragment.class));
     }
 }

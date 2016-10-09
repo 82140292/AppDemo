@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.lijianping.jiandan.Fragment.MainMenuFragment;
 import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.base.BaseActivity;
 
@@ -53,6 +54,8 @@ public class MainActivity extends BaseActivity {
 
         mActionBarDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
+
+        replaceFragment(R.id.fl_main_drawer, new MainMenuFragment());
     }
 
     @Override
