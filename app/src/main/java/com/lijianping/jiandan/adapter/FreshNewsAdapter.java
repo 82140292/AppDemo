@@ -34,7 +34,7 @@ import butterknife.Optional;
 public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.ViewHolder> {
 
     private int page;
-    private int lastPositon  = -1;
+    private int lastPosition  = -1;
     private boolean isLargeMode;
     private Activity activity;
     private DisplayImageOptions options;
@@ -54,10 +54,10 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     }
 
     private void setAnimation(View viewToAnimation, int position){
-        if (position > lastPositon){
+        if (position > lastPosition){
             Animation animation = AnimationUtils.loadAnimation(viewToAnimation.getContext(), R.anim.item_bottom_in);
             viewToAnimation.startAnimation(animation);
-            lastPositon = position;
+            lastPosition = position;
         }
     }
 
@@ -80,6 +80,20 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final FreshNews freshNews = mFreshNews.get(position);
+
+        ImageLoadProxy.displayImage(freshNews.getCustom_fields().getThumb_m(), holder.imageView, options);
+        holder.tvTitle.setText(freshNews.getTitle());
+        holder.tvInfo.setText(freshNews.getAuthor().getName() + "@" + freshNews.getTags().getTitle());
+        holder.tvViews.setText("浏览" + freshNews.getCustom_fields().getViews() + "次");
+
+        if (isLargeMode){
+            holder.tvShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    
+                }
+            });
+        }
     }
 
     @Override
