@@ -16,6 +16,7 @@ import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.callBack.LoadFinishCallBack;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
 import com.lijianping.jiandan.model.FreshNews;
+import com.lijianping.jiandan.utils.ShareUtils;
 import com.lijianping.jiandan.view.ImageLoadProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
@@ -78,7 +79,7 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final FreshNews freshNews = mFreshNews.get(position);
 
         ImageLoadProxy.displayImage(freshNews.getCustom_fields().getThumb_m(), holder.imageView, options);
@@ -90,10 +91,45 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
             holder.tvShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+                    ShareUtils.shareText(activity, freshNews.getTitle() + " " + freshNews.getUrl());
                 }
             });
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toDetailActivity(position);
+                }
+            });
+            setAnimation(holder.cardView, position);
+        }else {
+            holder.smallContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toDetailActivity(position);
+                }
+            });
+
+            setAnimation(holder.cardView, position);
         }
+    }
+
+    private void toDetailActivity(int position) {
+
+    }
+
+    public void loadFirst(){
+        page = 1;
+        loadDataByNetworkType();
+    }
+
+    public void loadNextPage(){
+        page++;
+        loadDataByNetworkType();
+    }
+
+    private void loadDataByNetworkType() {
+
     }
 
     @Override
