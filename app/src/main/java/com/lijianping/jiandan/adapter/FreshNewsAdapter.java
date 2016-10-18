@@ -12,11 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.lijianping.jiandan.R;
+import com.lijianping.jiandan.base.ConstantString;
 import com.lijianping.jiandan.callBack.LoadFinishCallBack;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
 import com.lijianping.jiandan.model.FreshNews;
+import com.lijianping.jiandan.net.Request4FreshNews;
+import com.lijianping.jiandan.net.RequestManager;
+import com.lijianping.jiandan.utils.NetWorkUtils;
 import com.lijianping.jiandan.utils.ShareUtils;
+import com.lijianping.jiandan.utils.ToastUtils;
 import com.lijianping.jiandan.view.ImageLoadProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
@@ -129,7 +136,38 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     }
 
     private void loadDataByNetworkType() {
+        if (NetWorkUtils.isNetWorkConnected(activity)){
+            RequestManager.addRequest(new Request4FreshNews(FreshNews.getUrlFreshNews(page),
+                    new Response.Listener<ArrayList<FreshNews>>() {
+                        @Override
+                        public void onResponse(ArrayList<FreshNews> response) {
+                            mLoadResuleCallBack.onSuccess(LoadResultCallBack.SUCCESS_OK, null);
+                            mLoadFinishCallBack.loadFinish(null);
 
+                            if (page == 1) {
+                                mFreshNews.clear();
+
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    mLoadResuleCallBack.onError(LoadResultCallBack.ERROR_NET, error.getMessage());
+                    mLoadFinishCallBack.loadFinish(null);
+                }
+            }), activity);
+        }else {
+            mLoadResuleCallBack.onSuccess(LoadResultCallBack.SUCCESS_OK, null);
+            mLoadFinishCallBack.loadFinish(null);
+
+            if (page == 1){
+                mFreshNews.clear();
+                ToastUtils.Short(ConstantString.LOAD_NO_NETWORK);
+            }
+
+            mFreshNews.addAll(null);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
