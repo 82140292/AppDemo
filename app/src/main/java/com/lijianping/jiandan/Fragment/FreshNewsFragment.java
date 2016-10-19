@@ -1,17 +1,25 @@
 package com.lijianping.jiandan.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.adapter.FreshNewsAdapter;
 import com.lijianping.jiandan.base.BaseFragment;
+import com.lijianping.jiandan.base.ConstantString;
 import com.lijianping.jiandan.callBack.LoadMoreListener;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
+import com.lijianping.jiandan.utils.ToastUtils;
 import com.lijianping.jiandan.view.AutoLoadRecyclerView;
 import com.lijianping.jiandan.view.RotateLoading;
 
@@ -62,18 +70,61 @@ public class FreshNewsFragment extends BaseFragment implements LoadResultCallBac
         mRecyclerView.setLoadMoreListener(new LoadMoreListener() {
             @Override
             public void loadMore() {
-
+                mAdapter.loadNextPage();
             }
         });
+        mSwipeRefreshLayout.setColorSchemeColors(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.loadFirst();
+            }
+        });
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setOnPauseListener(false, true);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        boolean isLargeMode = sp.getBoolean(SettingFragment.ENABLE_FRESH_BIG, true);
+
+        mAdapter = new FreshNewsAdapter(getActivity(), mRecyclerView, this, isLargeMode);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.loadFirst();
+        mLoading.start();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_refresh, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh){
+            mSwipeRefreshLayout.setRefreshing(true);
+            mAdapter.loadFirst();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void onSuccess(int result, Object object) {
-
+        mLoading.stop();
+        if (mSwipeRefreshLayout.isRefreshing()){
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void onError(int code, String msg) {
-
+        mLoading.stop();
+        ToastUtils.Short(ConstantString.LOAD_FAILED);
+        if (mSwipeRefreshLayout.isRefreshing()){
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

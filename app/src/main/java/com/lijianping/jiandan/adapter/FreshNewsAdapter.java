@@ -16,9 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.base.ConstantString;
+import com.lijianping.jiandan.cache.FreshNewsCache;
 import com.lijianping.jiandan.callBack.LoadFinishCallBack;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
 import com.lijianping.jiandan.model.FreshNews;
+import com.lijianping.jiandan.net.JSONParser;
 import com.lijianping.jiandan.net.Request4FreshNews;
 import com.lijianping.jiandan.net.RequestManager;
 import com.lijianping.jiandan.utils.NetWorkUtils;
@@ -146,8 +148,13 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
 
                             if (page == 1) {
                                 mFreshNews.clear();
-
+                                FreshNewsCache.getInstance(activity).clearAllCache();
                             }
+
+                            mFreshNews.addAll(response);
+
+                            notifyDataSetChanged();
+                            FreshNewsCache.getInstance(activity).addResultCache(JSONParser.toString(response), page);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -165,7 +172,7 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
                 ToastUtils.Short(ConstantString.LOAD_NO_NETWORK);
             }
 
-            mFreshNews.addAll(null);
+            mFreshNews.addAll(FreshNewsCache.getInstance(activity).getCacheByPage(page));
             notifyDataSetChanged();
         }
     }

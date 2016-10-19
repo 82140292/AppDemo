@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.lijianping.jiandan.Fragment.FreshNewsFragment;
 import com.lijianping.jiandan.Fragment.MainMenuFragment;
 import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.base.BaseActivity;
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
 
         replaceFragment(R.id.fl_main_drawer, new MainMenuFragment());
+        replaceFragment(R.id.fl_main_container, new FreshNewsFragment());
     }
 
     @Override
