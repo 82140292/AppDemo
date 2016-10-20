@@ -1,5 +1,7 @@
 package com.lijianping.jiandan.model;
 
+import com.lijianping.jiandan.utils.LogUtils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -61,6 +63,11 @@ public class FreshNews implements Serializable {
             freshNews.custom_fields = CustomFields.parse(jsonObject.optJSONObject("custom_fields"));
             freshNews.tags = Tags.parse(jsonObject.optJSONArray("tags"));
             freshNewses.add(freshNews);
+
+            LogUtils.i("freshNews id " + freshNews.id);
+            LogUtils.i("freshNews url " + freshNews.url);
+            LogUtils.i("freshNews title " + freshNews.title);
+            LogUtils.i("freshNews date " + freshNews.date);
         }
         return freshNewses;
     }

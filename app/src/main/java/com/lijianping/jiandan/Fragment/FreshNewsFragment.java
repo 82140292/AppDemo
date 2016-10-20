@@ -73,7 +73,7 @@ public class FreshNewsFragment extends BaseFragment implements LoadResultCallBac
                 mAdapter.loadNextPage();
             }
         });
-        mSwipeRefreshLayout.setColorSchemeColors(android.R.color.holo_blue_bright,
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
