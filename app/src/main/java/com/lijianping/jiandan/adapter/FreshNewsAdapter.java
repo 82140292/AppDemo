@@ -59,15 +59,6 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
         this.mLoadResuleCallBack = loadResultCallBack;
         mFreshNews = new ArrayList<>();
 
-//        for (int i = 0; i < 10; i ++){
-//            FreshNews freshNews = new FreshNews();
-//            freshNews.setId(123 + "");
-//            freshNews.setUrl("http://i.jandan.net/2016/10/18/hold-your-pee.html");
-//            freshNews.setTitle("煎蛋小学堂：憋尿的后果会有多严重？");
-//            freshNews.setDate("2016-10-18 21:27:49");
-//            mFreshNews.add(freshNews);
-//        }
-
         int loadingResource = isLargeMode ? R.drawable.ic_loading_large : R.drawable.ic_loading_small;
         options = ImageLoadProxy.getOptions4PictureList(loadingResource);
     }
