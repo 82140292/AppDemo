@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @fileName: FreshNews
+ * @fileName: FreshNewsDetailFragment
  * @Author: Li Jianping
  * @Date: 2016/10/9 16:10
  * @Description:
@@ -96,7 +96,7 @@ public class FreshNews implements Serializable {
 
     @Override
     public String toString() {
-        return "FreshNews{" +
+        return "FreshNewsDetailFragment{" +
                 "tags=" + tags +
                 ", customFields=" + custom_fields +
                 ", author=" + author +

@@ -24,7 +24,7 @@ public interface ConstantString {
     String FORBID_COMMENTS = "禁止评论";
     String NO_COMMENTS = "暂无评论";
 
-    String DATA_FRESH_NEWS = "FreshNews";
+    String DATA_FRESH_NEWS = "FreshNewsDetailFragment";
     String DATA_POSITION = "position";
     String DATA_THREAD_ID = "thread_id";
     String DATA_THREAD_KEY = "thread_key";

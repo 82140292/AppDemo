@@ -1,6 +1,7 @@
 package com.lijianping.jiandan.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.lijianping.jiandan.R;
+import com.lijianping.jiandan.activity.FreshNewsDetailActivity;
 import com.lijianping.jiandan.base.ConstantString;
 import com.lijianping.jiandan.cache.FreshNewsCache;
 import com.lijianping.jiandan.callBack.LoadFinishCallBack;
@@ -124,7 +126,10 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     }
 
     private void toDetailActivity(int position) {
-
+        Intent intent  = new Intent(activity, FreshNewsDetailActivity.class);
+        intent.putExtra(FreshNewsDetailActivity.DATA_FRESH_NEWS, mFreshNews);
+        intent.putExtra(FreshNewsDetailActivity.DATA_POSITION, position);
+        activity.startActivity(intent);
     }
 
     public void loadFirst(){
