@@ -2,9 +2,11 @@ package com.lijianping.jiandan.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 
 import com.lijianping.greendao.DaoMaster;
 import com.lijianping.greendao.DaoSession;
+import com.lijianping.jiandan.R;
 import com.lijianping.jiandan.cache.BaseCache;
 import com.lijianping.jiandan.view.ImageLoadProxy;
 
@@ -15,6 +17,9 @@ import com.lijianping.jiandan.view.ImageLoadProxy;
  * @Description:
  */
 public class MyApplication extends Application {
+
+    public static int COLOR_OF_DIALOG = R.color.primary;
+    public static int COLOR_OF_DIALOG_CONTENT = Color.WHITE;
 
     private static Context mContext;
 
