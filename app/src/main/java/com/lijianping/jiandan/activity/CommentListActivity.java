@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.lijianping.jiandan.R;
+import com.lijianping.jiandan.adapter.CommentAdapter;
 import com.lijianping.jiandan.base.BaseActivity;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
 import com.lijianping.jiandan.view.RotateLoading;
@@ -31,7 +32,10 @@ public class CommentListActivity extends BaseActivity implements LoadResultCallB
     RotateLoading mLoading;
 
 
+    private String thread_key;
+    private String thread_id;
     private boolean isFromFreshNews;
+    private CommentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class CommentListActivity extends BaseActivity implements LoadResultCallB
             @Override
             public void onRefresh() {
                 if (isFromFreshNews){
-
+                  
                 }
             }
         });
