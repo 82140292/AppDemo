@@ -18,6 +18,8 @@ import com.lijianping.jiandan.base.MyApplication;
 import com.lijianping.jiandan.callBack.LoadResultCallBack;
 import com.lijianping.jiandan.model.Comment4FreshNews;
 import com.lijianping.jiandan.model.Commentator;
+import com.lijianping.jiandan.net.Request4FreshNewsCommentList;
+import com.lijianping.jiandan.net.RequestManager;
 import com.lijianping.jiandan.utils.String2TimeUtil;
 import com.lijianping.jiandan.utils.ToastUtils;
 import com.lijianping.jiandan.view.FloorView;
@@ -89,7 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         switch (commentator.getType()){
             case Commentator.TYPE_HOT:
-                holder.tv_flag.setText("人们评论");
+                holder.tv_flag.setText("热门评论");
                 break;
             case Commentator.TYPE_NEW:
                 holder.tv_flag.setText("最新评论");
@@ -193,6 +195,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
     }
 
+    public void loadData(){
+        RequestManager.addRequest(new Request4FreshNewsCommentList());
+    }
     static class CommentViewHolder extends RecyclerView.ViewHolder{
 
         @Optional
