@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.lijianping.jiandan.R;
+import com.lijianping.jiandan.activity.CommentListActivity;
 import com.lijianping.jiandan.activity.MainActivity;
 import com.lijianping.jiandan.base.BaseFragment;
 import com.lijianping.jiandan.model.FreshNews;
@@ -164,7 +165,7 @@ public class FreshNewsDetailFragment extends BaseFragment {
 
         switch (item.getItemId()){
             case R.id.action_comment:
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), CommentListActivity.class);
                 intent.putExtra(DATA_THREAD_ID, freshNews.getId());
                 intent.putExtra(DATA_IS_FROM_FRESH_NEWS, true);
                 startActivity(intent);

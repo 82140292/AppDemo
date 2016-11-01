@@ -29,7 +29,7 @@ public class Request4CommentList extends Request<ArrayList<Commentator>> {
 
     private LoadFinishCallBack mCallBack;
 
-    private Request4CommentList(String url, Response.Listener<ArrayList<Commentator>> listListener,
+    public Request4CommentList(String url, Response.Listener<ArrayList<Commentator>> listListener,
                                          Response.ErrorListener errorListener, LoadFinishCallBack callBack){
         super(Method.GET, url, errorListener);
         mListener = listListener;

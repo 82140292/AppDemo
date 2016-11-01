@@ -25,7 +25,7 @@ public class Request4FreshNewsCommentList extends Request<ArrayList<Comment4Fres
 
     private LoadFinishCallBack mCallBack;
 
-    private Request4FreshNewsCommentList(String url, Response.Listener<ArrayList<Comment4FreshNews>> listListener,
+    public Request4FreshNewsCommentList(String url, Response.Listener<ArrayList<Comment4FreshNews>> listListener,
                                          Response.ErrorListener errorListener, LoadFinishCallBack callBack){
         super(Method.GET, url, errorListener);
         mListener = listListener;
